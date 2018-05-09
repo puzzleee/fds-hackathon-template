@@ -1,5 +1,20 @@
-$main-color: skyblue;
+$main-color: #56445d;
 
 body {
   background-color: $main-color;
+}
+
+.board {
+  &__row {
+    display: flex;
+    
+  }
+  &__col {
+    $cel-scale: 80px;
+    width: $cel-scale;
+    height: $cel-scale;
+    margin: 10px;
+    background-color: #c5e99b;
+    border-radius: 5px;
+  }
 }
