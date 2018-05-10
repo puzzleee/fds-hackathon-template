@@ -51,9 +51,6 @@ rowEls.forEach((rowEl, rowIndex) => {
       colEls[colIndex].classList.remove('board__col--empty');
     }
     colEl.addEventListener('click', e => {
-      move++;
-      checkFinish();
-      document.querySelector('.moves__count').textContent = move;
       clickCell.push(rowIndex, colIndex);
       if(
         (emptyCell[0] === clickCell[0] && emptyCell[1]-1 === clickCell[1])||
@@ -61,15 +58,19 @@ rowEls.forEach((rowEl, rowIndex) => {
         (emptyCell[1] === clickCell[1] && emptyCell[0]-1 === clickCell[0])||
         (emptyCell[1] === clickCell[1] && emptyCell[0]+1 === clickCell[0])
         ) {
-
-        // const clickNum = game.board[clickCell[0]][clickCell[1]];
         const clickNum = e.target.textContent;
-      
         document.querySelector('.board__col--empty').textContent = clickNum;
         document.querySelector('.board__col--empty').classList.remove('board__col--empty');
         e.target.textContent = emptyNum;
         e.target.classList.add('board__col--empty');
+        emptyCell[0] = clickCell[0];
+        emptyCell[1] = clickCell[1];
+        move++;
+        document.querySelector('.moves__count').textContent = move;
+        checkFinish();
       }
+      clickCell.pop();
+      clickCell.pop();
     })
   })
 })
@@ -95,7 +96,7 @@ function checkFinish() {
     if(finList[i].innerText === finArr[i]) {
       count++;
       if (count === 15) {
-      document.querySelector('.finish').classList.add('show');
+        document.querySelector('.finish').classList.add('show');
       }
     }
   }
