@@ -1,7 +1,10 @@
 $main-color: #56445d;
-// #8FBC94
-// #548687
-// #44364A
+$alpha-color: rgba(0, 0, 0, .2);
+$cell-color: #c5e99b;
+$text-color: #548687;
+// $color: #8FBC94;
+// $color: #44364A;
+
 body {
   background-color: $main-color;
   height: 100vh;
@@ -9,42 +12,36 @@ body {
   overflow: hidden;
   text-align: center;
   font-size: 1.4rem;
-  color: #548687;
+  color: $text-color;
 }
 
-.top {
-  background-color: rgba(0, 0, 0, .2);
+header {
+  background-color: $alpha-color;
   padding: 20px;
 }
 
-.main {
-  // background-color: #fff;
+main {
   display: inline-block;
   text-align: right;
   margin-top: 20px;
 }
 
 .moves {
-  width: 160px;
+  float: left;
   height: 30px;
-  // background-color: mintcream;
-  // padding: 10px;
-  margin: 10px 0;
-  text-align: left;
+  margin: 20px 0;
 }
 
 .reset {
-  display: inline-block;
   height: 30px;
   border: 1px solid #fff;
   border-radius: 5px;
-  // padding: 10px;
   margin: 20px 0;
   text-align: right;
 }
 
 .board {
-  background-color: rgba(0, 0, 0, .2);
+  background-color: $alpha-color;
   border-radius: 5px;
   padding: 10px;
   &__row {
@@ -52,20 +49,18 @@ body {
     justify-content: center;  
   }
   &__col {
-    $cel-scale: 80px;
-    width: $cel-scale;
-    height: $cel-scale;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    $cel-size: 80px;
+    width: $cel-size;
+    height: $cel-size;
     margin: 10px;
-    background-color: #c5e99b;
+    background-color: $cell-color;
     border-radius: 5px;
   }
-}
-
-.empty {
-  $cel-scale: 80px;
-  width: $cel-scale;
-  height: $cel-scale;
-  margin: 10px;
-  background-color: #44364A;
-  border-radius: 5px;
+  &__col--empty {
+    background-color: transparent;
+    font-size: 0px;
+  }
 }
