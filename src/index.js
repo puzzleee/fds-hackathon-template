@@ -38,7 +38,7 @@ function newArr() {
 
 // moves 갱신
 let move = 0;
-document.querySelector('.move').textContent = move;
+//document.querySelector('.move').textContent = move;
 
 
 // 이동 가능 셀을 클릭했을 때 1. 클릭 셀을 빈 셀로 변환 2. move +1
@@ -85,31 +85,32 @@ class puzzle {
 }
 
 const game = new puzzle();
-// 새 배열 화면에 반영하기
-// 0인 셀 찾기
 const rowEls = document.querySelectorAll('.board__row');
 rowEls.forEach((rowEl, rowIndex) => {
   const colEls = rowEl.querySelectorAll('.board__col');
+  const emptyCell = '0';
   colEls.forEach((colEl, colIndex) => {
     draw(); // 랜덤 생성된 배열의 숫자를 셀에 채워넣기
-    
+    console.log(colEls[colIndex])
+    // 0인 셀 찾기
+    if(colEls[colIndex].textContent === emptyCell ){
+      console.log(colEls[colIndex])
+      colEls[colIndex].classList.add('board__col--empty');
+    }
     // colEl.addEventListener('click', e => {
     //   game.turn({row: rowIndex, col: colIndex});
     // })
   })
 })
 
+
+// 새 배열 화면에 반영하기
 function draw() {
   game.board.forEach((rowArr, rowIndex) => {
     const rowEl = rowEls[rowIndex];
     const colEls = rowEl.querySelectorAll('.board__col');
     rowArr.forEach((col, colIndex) => {
       colEls[colIndex].textContent = col;
-      console.log(colEls[colIndex].textContent);
     })
   })
-  const finish = game.checkResult();
-  if (finish) {
-    document.querySelector('.finish').textContent = finish;
-  }
 }
