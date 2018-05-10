@@ -26,12 +26,6 @@ function newArr() {
 
 class puzzle {
   board = newArr();
-
-  // 선택 했을 했을 때 실행되는 함수
-  turn({row, col}) {
-    // 클릭한 셀을 빈 셀로 변경
-    // this.emptyCell[row][col] = this.clickCell;
-  }
 }
 
 const game = new puzzle();
@@ -58,6 +52,7 @@ rowEls.forEach((rowEl, rowIndex) => {
     }
     colEl.addEventListener('click', e => {
       move++;
+      checkFinish();
       document.querySelector('.moves__count').textContent = move;
       clickCell.push(rowIndex, colIndex);
       if(
@@ -89,5 +84,20 @@ function draw() {
       colEls[colIndex].textContent = col;
     })
   })
+}
+
+// 정답 확인
+function checkFinish() {
+  const finArr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15'];
+  const finList = document.querySelectorAll('.board__col');
+  let count = 0;
+  for(let i = 0; i < 15; i++) {
+    if(finList[i].innerText === finArr[i]) {
+      count++;
+      if (count === 15) {
+      document.querySelector('.finish').classList.add('show');
+      }
+    }
+  }
 }
 
