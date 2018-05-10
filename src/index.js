@@ -24,91 +24,59 @@ function newArr() {
   return boardArr;
 }
 
-// // 셀 넘버가 0이면 빈 셀
-// turn({row, col}) {
-//   // 셀넘버 게임판의 해당 위치에 매칭
-//   this.board[row][col] = this.cellNum;
-//   // 빈 셀 변경
-//   this.cellNum = this.cellNum === '-' ? '-' : '-';
-// }
+class puzzle {
+  board = newArr();
 
-// if (cellNum === 0) {
-//   document.querySelector('.board__col--empty').textContent = emptyCell;
-// } 
+  // 선택 했을 했을 때 실행되는 함수
+  turn({row, col}) {
+    // 클릭한 셀을 빈 셀로 변경
+    // this.emptyCell[row][col] = this.clickCell;
+  }
+}
+
+const game = new puzzle();
 
 // moves 갱신
 let move = 0;
 document.querySelector('.moves__count').textContent = move;
 
-
-// 이동 가능 셀을 클릭했을 때 1. 클릭 셀을 빈 셀로 변환 2. move +1
-// 이동 가능 셀을 클릭했을 때 반응 - 이벤트 리스너 - forEach로 
-// cellEl.forEach((el, index) => {
-//   newArr();
-//   el.classList.add('--empty'); // 클릭했을 때 자기 자신에게 붙이기 위해서 제일 상위에 넣기
-//     if (true === true) {
-//       move++;
-//       document.querySelector('.board__col').classList.add('--empty'); // 클래스 동적으로 추가하기 준비
-//     }
-//   document.querySelector('.move').textContent = move; // 화면에 반영
-// });
-
-class puzzle {
-  board = newArr();
-// 동작
-// 빈 셀 선택 이동
-  // 빈 셀의 상하좌우 중 하나를 클릭하면 빈 셀의 위치와 같아진다.
-  // emptyCell = {};
-  // emptyCell의 row값이 같고 col값 -1, +1 상하 선택
-  // emptyCell의 col값이 같고 row값 -1, +1 좌우 선택
-  cellNum = {};
-  
-  // 선택 했을 했을 때 실행되는 함수
-  turn({row, col}) {
-    // 셀넘버 게임판의 해당 위치에 매칭
-    this.board[row][col] = this.selectCell;
-    // 빈 셀 변경
-    this.cellNum = this.cellNum === '-' ? '-' : '-';
-  }
-  selectCell() {
-    for (let i = 0; i < 4; i++) {
-      if (
-        this.board[i][0] === this.board[i][1] &&
-        this.board[i][1] === this.board[i][2] &&
-        this.board[i][2] === this.board[i][3]
-      ) {
-        return this.board[i][0];
-      }
-    }
-  }
-}
-
-const game = new puzzle();
 const rowEls = document.querySelectorAll('.board__row');
-const emptyCell = document.querySelector('.board__col--empty');
+const emptyCell = [];
+const clickCell = [];
 rowEls.forEach((rowEl, rowIndex) => {
   const colEls = rowEl.querySelectorAll('.board__col');
   const zeroCell = '0';
   colEls.forEach((colEl, colIndex) => {
     draw(); // 랜덤 생성된 배열의 숫자를 셀에 채워넣기
-    console.log(colEls[colIndex])
     // 0인 셀 찾기
     if(colEls[colIndex].textContent === zeroCell ){
       colEls[colIndex].classList.add('board__col--empty');
-      console.log(zeroCell.textContent);
+      // 빈 셀 찾아서 새로 emptyCell에 좌표 저장
+      emptyCell.push(rowIndex, colIndex);
     } else {
       colEls[colIndex].classList.remove('board__col--empty');
     }
     colEl.addEventListener('click', e => {
-      game.turn({row: rowIndex, col: colIndex});
-      select();
+      clickCell.push(rowIndex, colIndex);
+      if(
+        (emptyCell[0] === clickCell[0] && emptyCell[1]-1 === clickCell[1])||
+        (emptyCell[0] === clickCell[0] && emptyCell[1]+1 === clickCell[1])||
+        (emptyCell[1] === clickCell[1] && emptyCell[0]-1 === clickCell[0])||
+        (emptyCell[1] === clickCell[1] && emptyCell[0]+1 === clickCell[0])
+        ) {
+        // emptyCell[0] = clickCell[0];
+        // emptyCell[1] = clickCell[1];
+        
+        const clickNum = game.board[clickCell[0]][clickCell[1]].toString();
+        document.querySelector('.board__col--empty').textContent = clickNum;
+        
+        //colEls[colIndex].classList.remove('board__col--empty');
+        // game.turn({emtpy: rowIndex, col: colIndex});
+      }
+      move++;
     })
   })
 })
-
-// 빈 셀 찾아서 새로 emptyCell에 저장
-// emptyCell의 좌표 찾기
-// emptyCell 상하좌우 선택
 
 
 // 새 배열 화면에 반영하기
@@ -121,3 +89,15 @@ function draw() {
     })
   })
 }
+
+
+function draw() {
+  game.board.forEach((rowArr, rowIndex) => {
+    const rowEl = rowEls[rowIndex];
+    const colEls = rowEl.querySelectorAll('.board__col');
+    rowArr.forEach((col, colIndex) => {
+      colEls[colIndex].textContent = col;
+    })
+  })
+}
+
