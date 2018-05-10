@@ -43,13 +43,13 @@ document.querySelector('.moves__count').textContent = move;
 const rowEls = document.querySelectorAll('.board__row');
 const emptyCell = [];
 const clickCell = [];
+const emptyNum = '0';
 rowEls.forEach((rowEl, rowIndex) => {
   const colEls = rowEl.querySelectorAll('.board__col');
-  const zeroCell = '0';
   colEls.forEach((colEl, colIndex) => {
     draw(); // 랜덤 생성된 배열의 숫자를 셀에 채워넣기
     // 0인 셀 찾기
-    if(colEls[colIndex].textContent === zeroCell ){
+    if(colEls[colIndex].textContent === emptyNum ){
       colEls[colIndex].classList.add('board__col--empty');
       // 빈 셀 찾아서 새로 emptyCell에 좌표 저장
       emptyCell.push(rowIndex, colIndex);
@@ -57,6 +57,8 @@ rowEls.forEach((rowEl, rowIndex) => {
       colEls[colIndex].classList.remove('board__col--empty');
     }
     colEl.addEventListener('click', e => {
+      move++;
+      document.querySelector('.moves__count').textContent = move;
       clickCell.push(rowIndex, colIndex);
       if(
         (emptyCell[0] === clickCell[0] && emptyCell[1]-1 === clickCell[1])||
@@ -64,34 +66,21 @@ rowEls.forEach((rowEl, rowIndex) => {
         (emptyCell[1] === clickCell[1] && emptyCell[0]-1 === clickCell[0])||
         (emptyCell[1] === clickCell[1] && emptyCell[0]+1 === clickCell[0])
         ) {
-        // emptyCell[0] = clickCell[0];
-        // emptyCell[1] = clickCell[1];
-        const clickNum = game.board[clickCell[0]][clickCell[1]].toString();
+
+        // const clickNum = game.board[clickCell[0]][clickCell[1]];
+        const clickNum = e.target.textContent;
+      
         document.querySelector('.board__col--empty').textContent = clickNum;
         document.querySelector('.board__col--empty').classList.remove('board__col--empty');
-        e.target.textContent = zeroCell;
+        e.target.textContent = emptyNum;
         e.target.classList.add('board__col--empty');
-        //colEls[colIndex].classList.remove('board__col--empty');
-        // game.turn({emtpy: rowIndex, col: colIndex});
       }
-      move++;
     })
   })
 })
 
 
 // 새 배열 화면에 반영하기
-function draw() {
-  game.board.forEach((rowArr, rowIndex) => {
-    const rowEl = rowEls[rowIndex];
-    const colEls = rowEl.querySelectorAll('.board__col');
-    rowArr.forEach((col, colIndex) => {
-      colEls[colIndex].textContent = col;
-    })
-  })
-}
-
-
 function draw() {
   game.board.forEach((rowArr, rowIndex) => {
     const rowEl = rowEls[rowIndex];
