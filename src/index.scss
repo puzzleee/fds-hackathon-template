@@ -60,9 +60,20 @@ main {
     margin: 10px;
     background-color: $cell-color;
     border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s background-color, 0.3s color;
+    &:hover {
+      background-color: $text-color;
+      color: $cell-color;    
+    }
   }
   &__col--empty {
     background-color: transparent;
-    font-size: 0px;
+    font-size: 0;
+    line-height: 0;
+    &:hover {
+      background-color: transparent;
+      color: transparent;    
+    }
   }
 }
