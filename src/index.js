@@ -66,10 +66,11 @@ rowEls.forEach((rowEl, rowIndex) => {
         ) {
         // emptyCell[0] = clickCell[0];
         // emptyCell[1] = clickCell[1];
-        
         const clickNum = game.board[clickCell[0]][clickCell[1]].toString();
         document.querySelector('.board__col--empty').textContent = clickNum;
-        
+        document.querySelector('.board__col--empty').classList.remove('board__col--empty');
+        e.target.textContent = zeroCell;
+        e.target.classList.add('board__col--empty');
         //colEls[colIndex].classList.remove('board__col--empty');
         // game.turn({emtpy: rowIndex, col: colIndex});
       }
