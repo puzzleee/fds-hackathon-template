@@ -24,6 +24,35 @@ function newArr() {
   return boardArr;
 }
 
+// // 셀 넘버가 0이면 빈 셀
+// turn({row, col}) {
+//   // 셀넘버 게임판의 해당 위치에 매칭
+//   this.board[row][col] = this.cellNum;
+//   // 빈 셀 변경
+//   this.cellNum = this.cellNum === '-' ? '-' : '-';
+// }
+
+// if (cellNum === 0) {
+//   document.querySelector('.board__col--empty').textContent = emptyCell;
+// } 
+
+// moves 갱신
+let move = 0;
+document.querySelector('.move').textContent = move;
+
+
+// 이동 가능 셀을 클릭했을 때 1. 클릭 셀을 빈 셀로 변환 2. move +1
+// 이동 가능 셀을 클릭했을 때 반응 - 이벤트 리스너 - forEach로 
+// cellEl.forEach((el, index) => {
+//   newArr();
+//   el.classList.add('--empty'); // 클릭했을 때 자기 자신에게 붙이기 위해서 제일 상위에 넣기
+//     if (true === true) {
+//       move++;
+//       document.querySelector('.board__col').classList.add('--empty'); // 클래스 동적으로 추가하기 준비
+//     }
+//   document.querySelector('.move').textContent = move; // 화면에 반영
+// });
+
 class puzzle {
   board = newArr();
 // 동작
@@ -34,7 +63,7 @@ class puzzle {
   // emptyCell의 col값이 같고 row값 -1, +1 좌우 선택
   cellNum = {};
   
-  // - 턴
+  // 선택 했을 했을 때 실행되는 함수
   turn({row, col}) {
     // 셀넘버 게임판의 해당 위치에 매칭
     this.board[row][col] = this.cellNum;
@@ -56,15 +85,17 @@ class puzzle {
 }
 
 const game = new puzzle();
-
+// 새 배열 화면에 반영하기
+// 0인 셀 찾기
 const rowEls = document.querySelectorAll('.board__row');
 rowEls.forEach((rowEl, rowIndex) => {
   const colEls = rowEl.querySelectorAll('.board__col');
   colEls.forEach((colEl, colIndex) => {
     draw(); // 랜덤 생성된 배열의 숫자를 셀에 채워넣기
-    colEl.addEventListener('click', e => {
-      game.turn({row: rowIndex, col: colIndex});
-    })
+    
+    // colEl.addEventListener('click', e => {
+    //   game.turn({row: rowIndex, col: colIndex});
+    // })
   })
 })
 
