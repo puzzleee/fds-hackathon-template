@@ -96,7 +96,8 @@ function checkFinish() {
     if(finList[i].innerText === finArr[i]) {
       count++;
       if (count === 15) {
-        document.querySelector('.finish').classList.add('show');
+        document.querySelector('.board__finish').classList.add('show');
+        document.querySelector('.moves').classList.add('down');
       }
     }
   }

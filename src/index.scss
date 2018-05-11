@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Righteous');
 $main-color: #56445d;
 $alpha-color: rgba(0, 0, 0, .2);
-$cell-color: #c5e99b;
+$alpha-color-dark: rgba(0, 0, 0, .8);
+$sub-color: #c5e99b;
 $text-color: #548687;
 // $color: #8FBC94;
 // $color: #44364A;
-
+p { margin: 0;}
 body {
   background-color: $main-color;
   height: 100vh;
@@ -20,31 +21,60 @@ body {
 header {
   background-color: $alpha-color;
   padding: 20px;
+  h1 {
+    margin: 9px 0;
+    font-size: 2.6em;
+  }
 }
 
 main {
+  position: relative;
   display: inline-block;
-  text-align: right;
-  margin-top: 20px;
 }
 
 .moves {
-  float: left;
-  height: 30px;
-  margin: 20px 0;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8em;
+  &__count {    
+    font-size: 1.6em;
+  }
+}
+.moves.down {
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  top: 55%;
+  color: #fff;  
+  .moves__count {    
+    font-size: 2.6em;
+  }
 }
 
-.reset {
-  height: 30px;
-  border: 1px solid #fff;
+.replay {
+  height: 56px;
+  border: 4px solid $alpha-color;
   border-radius: 5px;
+  width: 100%;
   margin: 20px 0;
-  text-align: right;
+  background: transparent;
+  color: $alpha-color-dark;
+  font-size: 1.0em;
+  font-family: 'Righteous', cursive;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  &:hover{
+    background: #Fff;
+    border: 0;
+  }
 }
 
 .board {
+  position: relative;
   background-color: $alpha-color;
   border-radius: 5px;
+  margin-top: 90px;
   padding: 10px;
   &__row {
     display: flex;
@@ -58,13 +88,14 @@ main {
     width: $cel-size;
     height: $cel-size;
     margin: 10px;
-    background-color: $cell-color;
+    background-color: $sub-color;
     border-radius: 5px;
+    font-size: 2.6em;
     cursor: pointer;
-    transition: 0.3s background-color, 0.3s color;
+    // transition: 0.3s background-color, 0.3s color;
     &:hover {
       background-color: $text-color;
-      color: $cell-color;    
+      color: $sub-color;    
     }
   }
   &__col--empty {
@@ -75,5 +106,26 @@ main {
       background-color: transparent;
       color: transparent;    
     }
+  }
+  &__finish {
+    display: none;
+  }
+  &__finish.show {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $alpha-color-dark;
+  }
+  &__finish--msg{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.6em;
+    width: 100%;
+    color: $sub-color; 
   }
 }

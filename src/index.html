@@ -12,10 +12,10 @@
     <h1>15 PUZZLE</h1>
   </header>
   <main>
-    <p class="moves">MOVES:
-      <span class="moves__count"></span>
-    </p>
-      <button class="reset">RESET</button>
+    <div class="moves">
+      <p>MOVES</p>
+      <p class="moves__count"></p>
+    </div>
     <div class="board">
         <div class="board__row">
           <div class="board__col"></div>
@@ -41,9 +41,12 @@
           <div class="board__col"></div>
           <div class="board__col"></div>
         </div>
+        <div class="board__finish">
+          <p class="board__finish--msg">YOU WIN!!</p>
+        </div>
     </div>
-  </main>
-  <div class="finish"></div>
+    <button class="replay">PLAY AGAIN</button>
+  </main> 
   <script src="index.js"></script>
 </body>
 </html>
