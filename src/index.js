@@ -22,10 +22,90 @@ function newArr() {
   }
   return boardArr;
 }
+// 반전쌍을 고려한 풀 수 있는 배열 만들기
+function solvable(){
+  const solvArr = newArr();
+  let oddNum = true; 
+  for(let i = 0 ; i < solvArr.length; i++){
+    for(let j = 0 ; j < solvArr.length; j++){
+      if(solvArr[i][j] === 0) {
+        if (i % 2 === 1) {
+          oddNum = false;
+        } 
+      } 
+    }
+  }
+  const reversePair = [];
+  const compareList = [];
+  if(oddNum){
+  // 빈칸이 홀수행인 경우
+    for(let i = 0; i < 4; i++) {
+      for(let j = 0; j < 4; j++) {
+        if(solvArr[i][j] !== 0){ compareList.push(solvArr[i][j]);
+        }
+      }
+    }
+    for(let k = 0; k < 15; k++) {
+      if(compareList[k] > compareList[k+1]) {
+        reversePair.push([compareList[k], compareList[k+1]]);
+      }
+    }
+    // 반전쌍이 홀수인 경우
+    if(reversePair.length % 2 === 1){
+      return solvArr;
+    } else {
+    // 반전쌍이 짝수인 경우 
+     const firstNum = reversePair[0][0];
+     const secondNum = reversePair[0][1];
+     for(let i = 0; i < 4; i++) {
+      for(let j = 0; j < 4; j++) {
+        if(solvArr[i][j] === firstNum){
+          solvArr[i][j] = secondNum;
+        } else if(solvArr[i][j] === secondNum){
+          solvArr[i][j] = firstNum;
+        }
+      }
+    }
+    return solvArr;
+  }
+  }else{
+  // 빈칸이 짝수행인 경우
+   for(let i = 0; i < 4; i++) {
+      for(let j = 0; j < 4; j++) {
+        if(solvArr[i][j] !== 0){ 
+          compareList.push(solvArr[i][j]);
+        }
+      }
+    }
+    for(let k = 0; k < 15; k++) {
+      if(compareList[k] > compareList[k+1]) {
+        reversePair.push([compareList[k], compareList[k+1]]);
+      }
+    }
+    // 반전쌍이 짝수인 경우
+    if(reversePair.length % 2 === 0){
+      return solvArr;
+    } else {
+    // 반전쌍이 홀수인 경우
+     const firstNum = reversePair[0][0];
+     const secondNum = reversePair[0][1];
+     for(let i = 0; i < 4; i++) {
+      for(let j = 0; j < 4; j++) {
+        if(solvArr[i][j] === firstNum){
+          solvArr[i][j] = secondNum;
+        } else if(solvArr[i][j] === secondNum){
+          solvArr[i][j] = firstNum;
+        }
+      }
+    }
+    return solvArr;
+  }
+  }
+ }
 
 // DOM에서 활용하기 위해 선언
 class puzzle {
-  board = newArr();
+  board = solvable();
 }
 
 let game = new puzzle();
