@@ -84,6 +84,8 @@ main {
     justify-content: center;  
   }
   &__col {
+    position: relative;
+    z-index: 30;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,7 +97,7 @@ main {
     border-radius: 5px;
     font-size: 2.6em;
     cursor: pointer;
-    box-shadow: inset 2px 2px rgba(255, 255, 255, .6), inset -2px -2px rgba(0, 0, 0, .2);
+    box-shadow: inset 2px 2px rgba(255, 255, 255, .4), inset -2px -2px rgba(0, 0, 0, .2);
     &:hover {
       background-color: $text-color;
       color: $sub-color;    
@@ -124,11 +126,11 @@ main {
     bottom: 0;
     background-color: $alpha-color-dark;
     .board__finish--msg {
-      opacity: 1;
+      display: block;
     }
   }
   &__finish--msg{
-    opacity: 0;
+    display: none;
     position: absolute;
     top: 30%;
     left: 50%;
